@@ -33,7 +33,7 @@ It enables users to register, log in, and manage their tasks — including addin
 ## 🧪 Getting Started
 
 ```bash
-git clone https://github.com/Moaaz-Sayed/get-it-done.git
+git clone https://github.com/Moaaz-Sayed/get-it-done-redux.git
 cd get-it-done
 npm install
 npm run dev
