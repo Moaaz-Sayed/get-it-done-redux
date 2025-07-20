@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply min-h-screen bg-gradient-to-tr from-indigo-100 via-purple-100 to-pink-100 text-gray-800;
+  font-family: "Inter", sans-serif;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
