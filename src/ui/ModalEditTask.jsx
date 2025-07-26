@@ -9,11 +9,11 @@ function ModalEditTask({ todo, onCancel }) {
   const dispatch = useDispatch();
   const ref = useOutsideClick(onCancel);
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    if (!newTitle) return;
+    if (newTitle === todo.title) return onCancel();
 
-    await dispatch(editTask({ id: todo.id, newTitle }));
+    dispatch(editTask({ id: todo.id, newTitle }));
     onCancel();
   }
 
@@ -30,6 +30,7 @@ function ModalEditTask({ todo, onCancel }) {
             onChange={(e) => setNewTitle(e.target.value)}
             className="mb-5 w-full rounded border border-gray-300 px-4 py-2 text-base"
             placeholder="Edit task"
+            autoFocus
           />
           <div className="flex justify-end gap-3">
             <button

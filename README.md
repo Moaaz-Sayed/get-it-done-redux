@@ -38,8 +38,14 @@ cd get-it-done
 npm install
 npm run dev
 ```
+
+## Live Demo
+
+https://get-it-done-redux.netlify.app/login
+
+```
 📌 Notes
 This project was built as a learning experience to practice modern full-stack development using React, Redux, and Supabase.
 It’s fully responsive and works seamlessly across desktop and mobile screens.
 
-
+```

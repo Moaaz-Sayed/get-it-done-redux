@@ -35,7 +35,7 @@ export async function addTask(user_id, title) {
 export async function editTask(id, newTitle) {
   const { data, error } = await supabase
     .from("todos")
-    .update({ title: newTitle })
+    .update({ title: newTitle, updated_at: new Date() })
     .eq("id", id)
     .select()
     .single();

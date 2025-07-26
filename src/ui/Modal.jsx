@@ -1,9 +1,8 @@
-// src/ui/ConfirmLogoutModal.jsx
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 
-function ConfirmLogoutModal({ onCancel, onConfirm, message }) {
+function Modal({ onCancel, onConfirm, message, children }) {
   const ref = useOutsideClick(onCancel);
 
   return createPortal(
@@ -33,10 +32,12 @@ function ConfirmLogoutModal({ onCancel, onConfirm, message }) {
             <button
               onClick={onConfirm}
               className="rounded-md bg-red-600 px-4 py-2 text-white hover:opacity-90"
+              autoFocus
             >
               Yes
             </button>
           </div>
+          {children && <div className="flex justify-center">{children}</div>}
         </motion.div>
       </motion.div>
     </AnimatePresence>,
@@ -44,4 +45,4 @@ function ConfirmLogoutModal({ onCancel, onConfirm, message }) {
   );
 }
 
-export default ConfirmLogoutModal;
+export default Modal;

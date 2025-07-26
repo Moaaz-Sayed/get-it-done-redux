@@ -65,18 +65,38 @@ const initialState = {
   todos: [],
   status: "idle",
   error: null,
+  editingId: null,
+  showCompleted: JSON.parse(localStorage.getItem("showCompleted")) ?? true,
+  hideDeleteModal: localStorage.getItem("hideDeleteModal") === "true",
 };
 
 const todosSlice = createSlice({
   name: "todos",
   initialState,
+  reducers: {
+    toggleShowCompleted(state) {
+      state.showCompleted = !state.showCompleted;
+      localStorage.setItem(
+        "showCompleted",
+        JSON.stringify(state.showCompleted),
+      );
+    },
+    hidingDeleteModal(state) {
+      state.hideDeleteModal = true;
+      localStorage.setItem("hideDeleteModal", "true");
+    },
+    showDeleteModal(state) {
+      state.hideDeleteModal = false;
+      localStorage.removeItem("hideDeleteModal");
+    },
+  },
   extraReducers: (builder) => {
     builder
 
       // Show Tasks
 
       .addCase(fetchTodos.pending, (state) => {
-        state.status = "loading";
+        state.status = "loadingFitch";
         state.error = null;
       })
       .addCase(fetchTodos.fulfilled, (state, action) => {
@@ -91,7 +111,7 @@ const todosSlice = createSlice({
       // Add Task
 
       .addCase(addTask.pending, (state) => {
-        state.status = "loading";
+        state.status = "loadingAdd";
         state.error = null;
       })
       .addCase(addTask.fulfilled, (state, action) => {
@@ -106,8 +126,9 @@ const todosSlice = createSlice({
       })
 
       // Edit Task
-      .addCase(editTask.pending, (state) => {
-        state.status = "loading";
+      .addCase(editTask.pending, (state, action) => {
+        state.status = "loadingEdit";
+        state.editingId = action.meta.arg.id;
         state.error = null;
       })
       .addCase(editTask.fulfilled, (state, action) => {
@@ -119,28 +140,30 @@ const todosSlice = createSlice({
           state.todos[index] = updatedTodo;
         }
         state.status = "succeeded";
+        state.editingId = null;
         toast.success("Task updated successfully!");
       })
       .addCase(editTask.rejected, (state, action) => {
         state.status = "failed";
+        state.editingId = null;
         state.error = action.payload;
         toast.error(
           `Update failed: ${action.payload || "Unknown error occurred"}`,
         );
       })
 
-      // Complate Task
+      // Complete Task
       .addCase(toggleComplete.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
       .addCase(toggleComplete.fulfilled, (state, action) => {
-        const updatedTodo = action.payload;
+        const completeTodo = action.payload;
         state.todos = state.todos.map((todo) =>
-          todo.id === updatedTodo.id ? { ...todo, ...updatedTodo } : todo,
+          todo.id === completeTodo.id ? { ...todo, ...completeTodo } : todo,
         );
         state.status = "succeeded";
-        toast.success("Task status updated!");
+        // toast.success("Task status updated!");
       })
       .addCase(toggleComplete.rejected, (state, action) => {
         state.status = "failed";
@@ -169,4 +192,6 @@ const todosSlice = createSlice({
   },
 });
 
+export const { toggleShowCompleted, showDeleteModal, hidingDeleteModal } =
+  todosSlice.actions;
 export default todosSlice.reducer;

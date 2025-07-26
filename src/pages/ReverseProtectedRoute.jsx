@@ -1,11 +1,8 @@
-import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import FullPageSpinner from "../ui/Spinner";
+import { Navigate } from "react-router-dom";
 
 function ReverseProtectedRoute({ children }) {
-  const { user, status } = useSelector((state) => state.auth);
-
-  if (status === "loading") return <FullPageSpinner />;
+  const { user } = useSelector((state) => state.auth);
 
   if (user) return <Navigate to="/todos" replace />;
 
