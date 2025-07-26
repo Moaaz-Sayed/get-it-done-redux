@@ -42,6 +42,7 @@ function Signup() {
             onChange={(e) => setUsername(e.target.value)}
             placeholder="User Name"
             size="sm"
+            required
           />
           <Input
             type="email"
@@ -49,6 +50,7 @@ function Signup() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             size="sm"
+            required
           />
           <Input
             type="password"
@@ -56,6 +58,7 @@ function Signup() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             size="sm"
+            required
           />
         </div>
 
@@ -67,12 +70,6 @@ function Signup() {
         >
           {status === "loading" ? "Signing up..." : "Sign up"}
         </Button>
-
-        {status === "failed" && (
-          <p className="text-center text-sm text-red-600">
-            {error || "Something went wrong"}
-          </p>
-        )}
 
         <p className="text-center text-sm text-gray-600">
           Already have an account?{" "}

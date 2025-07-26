@@ -41,6 +41,7 @@ function Login() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             size="sm"
+            required
           />
           <Input
             type="password"
@@ -48,6 +49,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             size="sm"
+            required
           />
         </div>
 
@@ -59,12 +61,6 @@ function Login() {
         >
           {status === "loading" ? "Logging in..." : "Login"}
         </Button>
-
-        {status === "failed" && (
-          <p className="text-center text-sm text-red-600">
-            Email or password is incorrect
-          </p>
-        )}
 
         <p className="text-center text-sm text-gray-600">
           Don’t have an account?{" "}
