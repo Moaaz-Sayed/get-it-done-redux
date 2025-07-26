@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../ui/Logo";
-import FullPageSpinner from "../ui/Spinner";
-import Input from "../ui/Input";
+import { login } from "../features/auth/authSlice";
 import Button from "../ui/Button";
+import Input from "../ui/Input";
+import Logo from "../ui/Logo";
+import SpinnerMini from "../ui/SpinnerMini";
 
 function Login() {
   const dispatch = useDispatch();
@@ -23,8 +23,6 @@ function Login() {
       navigate("/todos");
     }
   }
-
-  if (status === "loading") return <FullPageSpinner />;
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
@@ -59,7 +57,7 @@ function Login() {
           variant="primary"
           disabled={status === "loading"}
         >
-          {status === "loading" ? "Logging in..." : "Login"}
+          {status === "loading" ? <SpinnerMini /> : "Login"}
         </Button>
 
         <p className="text-center text-sm text-gray-600">

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../ui/Logo";
-import FullPageSpinner from "../ui/Spinner";
-import Input from "../ui/Input";
+import { signup } from "../features/auth/authSlice";
 import Button from "../ui/Button";
+import Input from "../ui/Input";
+import Logo from "../ui/Logo";
+import SpinnerMini from "../ui/SpinnerMini";
 
 function Signup() {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
-  const { status, error } = useSelector((state) => state.auth);
+  const { status } = useSelector((state) => state.auth);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,8 +24,6 @@ function Signup() {
       navigate("/todos");
     }
   }
-
-  if (status === "loading") return <FullPageSpinner />;
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
@@ -68,7 +66,7 @@ function Signup() {
           variant="primary"
           disabled={status === "loading"}
         >
-          {status === "loading" ? "Signing up..." : "Sign up"}
+          {status === "loading" ? <SpinnerMini /> : "Sign up"}
         </Button>
 
         <p className="text-center text-sm text-gray-600">
