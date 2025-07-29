@@ -1,8 +1,8 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { deleteTask, toggleComplete, hidingDeleteModal } from "./todosSlice";
 import { HiPencil, HiTrash } from "react-icons/hi2";
+import { deleteTask, toggleComplete, hidingDeleteModal } from "./todosSlice";
 import Modal from "../../ui/Modal";
 import ModalEditTask from "../../ui/ModalEditTask";
 import SpinnerMini from "../../ui/SpinnerMini";

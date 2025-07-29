@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 import {
   showTodos as apiShowTodos,
@@ -7,7 +8,6 @@ import {
   toggleComplete as apiToggleComplete,
   deleteTask as apiDeleteTask,
 } from "../../services/apiTodos";
-import toast from "react-hot-toast";
 
 // Show Todos thunk
 
@@ -65,6 +65,7 @@ const initialState = {
   todos: [],
   status: "idle",
   error: null,
+  searchQuery: "",
   editingId: null,
   showCompleted: JSON.parse(localStorage.getItem("showCompleted")) ?? true,
   hideDeleteModal: localStorage.getItem("hideDeleteModal") === "true",
@@ -88,6 +89,9 @@ const todosSlice = createSlice({
     showDeleteModal(state) {
       state.hideDeleteModal = false;
       localStorage.removeItem("hideDeleteModal");
+    },
+    setSearchQuery(state, action) {
+      state.searchQuery = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -192,6 +196,10 @@ const todosSlice = createSlice({
   },
 });
 
-export const { toggleShowCompleted, showDeleteModal, hidingDeleteModal } =
-  todosSlice.actions;
+export const {
+  toggleShowCompleted,
+  showDeleteModal,
+  hidingDeleteModal,
+  setSearchQuery,
+} = todosSlice.actions;
 export default todosSlice.reducer;

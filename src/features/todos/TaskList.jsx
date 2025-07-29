@@ -1,19 +1,21 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import TodoItem from "./TodoItem";
-import { fetchTodos, showDeleteModal } from "./todosSlice";
-import Spinner from "../../ui/Spinner";
 import { AnimatePresence } from "framer-motion";
+import { fetchTodos, showDeleteModal } from "./todosSlice";
+import TodoItem from "./TodoItem";
+import Spinner from "../../ui/Spinner";
 
 function TaskList() {
-  const { todos, status, error, showCompleted } = useSelector(
+  const { todos, status, error, showCompleted, searchQuery } = useSelector(
     (state) => state.todos,
   );
   const hideDeleteModal = useSelector((state) => state.todos.hideDeleteModal);
 
-  const visibleTodos = showCompleted
-    ? todos
-    : todos.filter((todo) => !todo.completed);
+  const visibleTodos = todos
+    .filter((todo) => showCompleted || !todo.completed)
+    .filter((todo) =>
+      todo.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
 
   const dispatch = useDispatch();
 

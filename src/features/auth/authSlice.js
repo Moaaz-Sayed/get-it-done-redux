@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 import {
   login as apiLogin,
   signup as apiSignup,
   logout as apiLogout,
 } from "../../services/apiAuth";
-import toast from "react-hot-toast";
 
 // Login thunk
 
@@ -39,7 +39,6 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkApi) => {
 const savedUser = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
-  // user: null || savedUser,
   user: savedUser || null,
   status: "idle",
   error: null,
