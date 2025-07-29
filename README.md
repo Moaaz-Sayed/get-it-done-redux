@@ -26,6 +26,7 @@ It enables users to register, log in, and manage their tasks — including addin
 - **Supabase**
 - **Vite**
 - **TailwindCSS**
+- **Fremer motion**
 - **date-fns** (for formatting timestamps)
 
 ---
